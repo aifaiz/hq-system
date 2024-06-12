@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Distributor\Widgets;
+namespace App\Filament\Backend\Widgets;
 
 use App\Models\Order;
 use Carbon\Carbon;
@@ -14,7 +14,6 @@ class OrderChart extends ChartWidget
 
     protected function getData(): array
     {
-        $distributorID = auth()->id();
         $startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY);
         $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY);
 
@@ -28,10 +27,7 @@ class OrderChart extends ChartWidget
             $endOfDay = $startOfWeek->copy()->addDays($i)->endOfDay();
 
             // Query the database to count attendance for the current day
-            $sumSales = Order::whereBetween('created_at', [$startOfDay, $endOfDay])
-                ->where('pay_status', 'PAID')
-                ->where('distributor_id', $distributorID)
-                ->sum('grand_total');
+            $sumSales = Order::whereBetween('created_at', [$startOfDay, $endOfDay])->where('pay_status', 'PAID')->sum('grand_total');
 
             // $count = $countRegistered + $countImported;
 
@@ -72,5 +68,4 @@ class OrderChart extends ChartWidget
             ]
         ];
     }
-    
 }

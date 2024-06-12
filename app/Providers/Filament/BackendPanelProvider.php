@@ -40,7 +40,7 @@ class BackendPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
-                // AppVersion::class,
+                AppVersion::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -38,4 +38,9 @@ class Order extends Model
     {
         return $this->belongsTo(AgentUser::class);
     }
+
+    public function distributor()
+    {
+        return $this->belongsTo(DistributorUser::class);
+    }
 }

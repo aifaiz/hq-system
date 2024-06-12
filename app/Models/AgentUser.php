@@ -57,7 +57,7 @@ class AgentUser extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->status == '1';
     }
 
     public function paidCommissions()
