@@ -24,7 +24,8 @@ class AgentUser extends Authenticatable implements FilamentUser
         'phone',
         'status',
         'refcode',
-        'lp_expire'
+        'lp_expire',
+        'distributor_id'
     ];
 
     /**

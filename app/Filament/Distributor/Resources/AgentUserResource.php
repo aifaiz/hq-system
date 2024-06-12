@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class AgentUserResource extends Resource
@@ -21,6 +22,17 @@ class AgentUserResource extends Resource
     protected static ?string $model = AgentUser::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function getEloquentQuery(): Builder
+    {
+        $user = auth()->user();
+        $distributorID = $user->id;
+        $builder = parent::getEloquentQuery();
+
+        $builder = $builder->where('distributor_id', $distributorID);
+
+        return $builder;
+    }
 
     public static function form(Form $form): Form
     {
@@ -68,7 +80,9 @@ class AgentUserResource extends Resource
                         $now = Carbon::today();
                         $nextYear = $now->addYear();
                         return $nextYear->format('Y-m-d');
-                    })
+                    }),
+                Forms\Components\Hidden::make('distributor_id')
+                    ->default(fn()=> auth()->guard('distributor')->id())
             ]);
     }
 
@@ -108,6 +122,7 @@ class AgentUserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -130,6 +145,7 @@ class AgentUserResource extends Resource
             'index' => Pages\ListAgentUsers::route('/'),
             'create' => Pages\CreateAgentUser::route('/create'),
             'edit' => Pages\EditAgentUser::route('/{record}/edit'),
+            'view' => Pages\ViewAgent::route('{record}/view')
         ];
     }
 }

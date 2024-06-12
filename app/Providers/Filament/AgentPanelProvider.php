@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Agent\Widgets\AgentCommission;
+use App\Filament\Distributor\Widgets\AppVersion;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -35,8 +37,9 @@ class AgentPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Agent/Widgets'), for: 'App\\Filament\\Agent\\Widgets')
             ->widgets([
+                AgentCommission::class,
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                AppVersion::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -51,6 +54,9 @@ class AgentPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ], isPersistent:true)
+            ->authGuard('agent')
+            ->spa()
+            ->login();
     }
 }

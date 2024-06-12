@@ -43,6 +43,10 @@ return [
         'distributor'=>[
             'driver'=> 'session',
             'provider'=> 'distributor'
+        ],
+        'agent'=>[
+            'driver'=> 'session',
+            'provider'=> 'agent'
         ]
     ],
 
@@ -71,6 +75,10 @@ return [
         'distributor'=>[
             'driver'=> 'eloquent',
             'model' => App\Models\DistributorUser::class
+        ],
+        'agent'=>[
+            'driver'=> 'eloquent',
+            'model' => App\Models\AgentUser::class
         ]
 
         // 'users' => [

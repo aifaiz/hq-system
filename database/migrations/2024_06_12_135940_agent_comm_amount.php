@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('agent_users', function($t){
             $t->decimal('comm_amount', 10,2)->default(10)->nullable()->after('refcode');
             $t->date('lp_expire')->nullable()->after('comm_amount');
+            $t->bigInteger('distributor_id')->after('lp_expire');
         });
     }
 
@@ -23,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('agent_users', function($t){
-            $t->dropColumn(['comm_amount', 'lp_expire']);
+            $t->dropColumn(['comm_amount', 'lp_expire', 'distributor_id']);
         });
     }
 };
