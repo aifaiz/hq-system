@@ -24,6 +24,7 @@ class DistributorPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandName('Distributor System')
             ->id('distributor')
             ->path('distributor')
             ->colors([

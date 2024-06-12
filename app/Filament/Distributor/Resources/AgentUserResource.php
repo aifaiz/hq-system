@@ -28,7 +28,9 @@ class AgentUserResource extends Resource
 {
     protected static ?string $model = AgentUser::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationIcon = 'heroicon-s-users';
 
     public static function getEloquentQuery(): Builder
     {

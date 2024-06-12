@@ -25,6 +25,7 @@ class AgentPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandName('Agent System')
             ->id('agent')
             ->path('agent')
             ->colors([
