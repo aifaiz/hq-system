@@ -16,15 +16,34 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Log;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-m-bolt';
+
+    protected static ?int $navigationSort = 2;
+
+    public static function getEloquentQuery(): Builder
+    {
+        $user = auth()->user();
+        $agentID = $user->id;
+        
+        return parent::getEloquentQuery()->where('agent_id', $agentID);
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
 
     private static function getAvailableProduct()
     {
@@ -43,6 +62,9 @@ class OrderResource extends Resource
                     ->required()
                     ->regex('/^01\d{8,}$/')
                     ->helperText('start with 01XXXXXXXX .must not contain - or space'),
+                Forms\Components\TextInput::make('customer_email')
+                    ->required()
+                    ->email(),
                 Forms\Components\Textarea::make('address')
                     ->columnSpanFull(),
                 Forms\Components\Hidden::make('agent_id')
@@ -156,7 +178,8 @@ class OrderResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
@@ -169,7 +192,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ItemsRelationManager::class
         ];
     }
 
@@ -179,6 +202,56 @@ class OrderResource extends Resource
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'view' => Pages\ViewOrder::route('/{record}/view')
         ];
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\Section::make('Customer Details')
+                    ->columns(3)
+                    ->schema([
+                        Infolists\Components\TextEntry::make('customer_name')
+                            ->label('Name'),
+                        Infolists\Components\TextEntry::make('customer_phone')
+                            ->label('Phone'),
+                        Infolists\Components\TextEntry::make('customer_email')
+                            ->label('Email'),
+                        Infolists\Components\TextEntry::make('address')
+                            ->columnSpanFull()
+                    ]),
+                Infolists\Components\Section::make('Order Data')
+                    ->columns(4)
+                    ->schema([
+                        Infolists\Components\TextEntry::make('grand_total')
+                            ->label('Total')
+                            ->prefix('RM '),
+                        Infolists\Components\TextEntry::make('agent_comm')
+                            ->label('Agent Commission')
+                            ->prefix('RM '),
+                        Infolists\Components\TextEntry::make('pay_status')
+                            ->label('Pay Status')
+                            ->badge()
+                            ->color(fn (string $state): string => match ($state) {
+                                'PAID' => 'success',
+                                'DUE' => 'danger',
+                            }),
+                        Infolists\Components\TextEntry::make('delivery_status')
+                            ->label('Order Processed')
+                            ->badge()
+                            ->color(fn (string $state): string => match ($state) {
+                                'sent' => 'success',
+                                'pending' => 'danger',
+                                default => 'danger'
+                            }),
+                        Infolists\Components\TextEntry::make('pay_at')
+                            ->label('Paid On')
+                            ->date('d/m/Y g:i A'),
+                        Infolists\Components\TextEntry::make('fpx_ref')
+                            ->label('ToyyibPay Ref')
+                    ])
+            ]);
     }
 }

@@ -22,6 +22,7 @@ class Order extends Model
         'grand_total',
         'customer_name',
         'customer_phone',
+        'customer_email',
         'address',
         'fpx_ref',
         'agent_comm',

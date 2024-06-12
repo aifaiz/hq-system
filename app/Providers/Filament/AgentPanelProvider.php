@@ -37,9 +37,8 @@ class AgentPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Agent/Widgets'), for: 'App\\Filament\\Agent\\Widgets')
             ->widgets([
-                AgentCommission::class,
                 Widgets\AccountWidget::class,
-                // AppVersion::class,
+                AppVersion::class,
             ])
             ->middleware([
                 EncryptCookies::class,

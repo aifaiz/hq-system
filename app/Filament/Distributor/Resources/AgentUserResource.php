@@ -207,6 +207,42 @@ class AgentUserResource extends Resource
                                     ->success()
                                     ->color('success')
                                     ->send();
+                            }),
+                        Infolists\Components\Actions\Action::make('banAgent')
+                            ->label('Ban Agent')
+                            ->icon('heroicon-s-hand-raised')
+                            ->color('danger')
+                            ->requiresConfirmation()
+                            ->hidden(fn(AgentUser $record)=> $record->status == '0')
+                            ->modalDescription('Agent will not be able to login.')
+                            ->action(function(AgentUser $record){
+                                $record->status = 0;
+                                $record->save();
+
+                                Notification::make()
+                                    ->title('Agent Banned')
+                                    ->body('Agent no longer has access to dashboard.')
+                                    ->info()
+                                    ->color('info')
+                                    ->send();
+                            }),
+                        Infolists\Components\Actions\Action::make('unbanAgent')
+                            ->label('Unban Agent')
+                            ->icon('heroicon-c-hand-thumb-up')
+                            ->color('success')
+                            ->requiresConfirmation()
+                            ->hidden(fn(AgentUser $record)=> $record->status == '1')
+                            ->modalDescription('Agent will be able to login.')
+                            ->action(function(AgentUser $record){
+                                $record->status = 1;
+                                $record->save();
+
+                                Notification::make()
+                                    ->title('Agent Unbanned')
+                                    ->body('Agent now has access to dashboard.')
+                                    ->success()
+                                    ->color('success')
+                                    ->send();
                             })
                     ])
                     ->schema([
