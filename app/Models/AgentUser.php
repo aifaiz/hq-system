@@ -25,7 +25,11 @@ class AgentUser extends Authenticatable implements FilamentUser
         'status',
         'refcode',
         'lp_expire',
-        'distributor_id'
+        'distributor_id',
+        'bank_name',
+        'bank_acc_no',
+        'bank_acc_name',
+        'enable_order'
     ];
 
     /**
@@ -54,5 +58,23 @@ class AgentUser extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    public function paidCommissions()
+    {
+        return $this->hasMany(
+            CommissionPay::class,
+            'agent_id',
+            'id'
+        );
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(
+            Order::class,
+            'agent_id', //foreign key
+            'id' // this model id
+        );
     }
 }

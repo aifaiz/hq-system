@@ -27,7 +27,7 @@ class DistributorPanelProvider extends PanelProvider
             ->id('distributor')
             ->path('distributor')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Cyan,
             ])
             ->discoverResources(in: app_path('Filament/Distributor/Resources'), for: 'App\\Filament\\Distributor\\Resources')
             ->discoverPages(in: app_path('Filament/Distributor/Pages'), for: 'App\\Filament\\Distributor\\Pages')
@@ -38,7 +38,7 @@ class DistributorPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
-                AppVersion::class,
+                // AppVersion::class,
             ])
             ->middleware([
                 EncryptCookies::class,

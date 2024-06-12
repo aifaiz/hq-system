@@ -72,8 +72,8 @@ class Settings extends Component implements HasForms, HasActions
                     ->color('success')
                     ->send();
 
-        $this->generateFields();
-        $this->render();
+        // $this->generateFields();
+        // $this->render();
     }
 
     public function render()

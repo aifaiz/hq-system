@@ -28,7 +28,7 @@ class AgentPanelProvider extends PanelProvider
             ->id('agent')
             ->path('agent')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Lime,
             ])
             ->discoverResources(in: app_path('Filament/Agent/Resources'), for: 'App\\Filament\\Agent\\Resources')
             ->discoverPages(in: app_path('Filament/Agent/Pages'), for: 'App\\Filament\\Agent\\Pages')
@@ -39,7 +39,7 @@ class AgentPanelProvider extends PanelProvider
             ->widgets([
                 AgentCommission::class,
                 Widgets\AccountWidget::class,
-                AppVersion::class,
+                // AppVersion::class,
             ])
             ->middleware([
                 EncryptCookies::class,
