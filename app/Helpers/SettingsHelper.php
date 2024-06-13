@@ -30,4 +30,28 @@ class SettingsHelper
             // ],
         ];
     }
+
+    /*
+    * list of default admin settings key
+    */
+    public static function getAdminKeys()
+    {
+        return [
+            [
+                'label'=>'Toyyibpay Secret',
+                'type'=>'text',
+                'key'=>'TOYYIBPAY_SECRET',
+            ],
+            [
+                'label'=>'Toyyibpay Category',
+                'type'=>'text',
+                'key'=>'TOYYIBPAY_CATEGORY_ID',
+            ],
+            [
+                'label'=>'Delivery Price',
+                'type'=>'text',
+                'key'=>'DELIVERY_PRICE',
+            ],
+        ];
+    }
 }

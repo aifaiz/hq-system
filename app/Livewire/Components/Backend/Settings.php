@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components\Backend;
 
+use App\Helpers\SettingsHelper;
 use App\Models\Setting;
 use Livewire\Component;
 use Filament\Forms\Components\TextInput;
@@ -22,33 +23,31 @@ class Settings extends Component implements HasForms, HasActions
 
     private ?array $fields = [];
     public ?array $data = [];
+    private ?array $keys = [];
+
+    public function __construct()
+    {
+        $this->keys = SettingsHelper::getAdminKeys();
+        $this->generateFields();   // need to fill up the fields upon generate. if not missing form html.
+    }
 
     public function mount(): void
     {
-        $this->generateFields();
         $this->form->fill($this->data);
     }
 
     private function generateFields()
     {
-        $setting = Setting::all();
-        $fields = [];
-        $data = [];
-
-        foreach($setting as $s):
-            $inputKey = 'sval_'.$s->id;
-            $data[$inputKey] = $s->sval;
-            $fields[] = Forms\Components\TextInput::make($inputKey)->label($s->skey);
+        foreach($this->keys as $s):
+            $key = $s['key'];
+            $this->data[$key] = Setting::where('skey', $key)->value('sval');
+            $this->fields[$key] = Forms\Components\TextInput::make($key)->label($s['label']);
         endforeach;
-
-        $this->data = $data;
-        $this->fields = $fields;
 
     }
 
     public function form(Form $form): Form
     {
-        $this->generateFields(); // need to fill up the fields upon generate. if not missing form html.
         return $form
             ->schema($this->fields)
             ->statePath('data');
@@ -71,9 +70,6 @@ class Settings extends Component implements HasForms, HasActions
                     ->success()
                     ->color('success')
                     ->send();
-
-        // $this->generateFields();
-        // $this->render();
     }
 
     public function render()
