@@ -14,6 +14,10 @@ class ListOrders extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            Actions\Action::make('export')
+                ->label('Export All')
+                ->requiresConfirmation()
+                ->color('info')
         ];
     }
 }

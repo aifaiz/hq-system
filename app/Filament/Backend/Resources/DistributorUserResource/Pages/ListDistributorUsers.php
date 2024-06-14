@@ -14,6 +14,7 @@ class ListDistributorUsers extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            // Actions\Action::make('test')->color('success')->requiresConfirmation()
         ];
     }
 }

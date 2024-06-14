@@ -49,7 +49,10 @@ class Settings extends Component implements HasForms, HasActions
     public function form(Form $form): Form
     {
         return $form
-            ->schema($this->fields)
+            ->schema([
+                Forms\Components\Grid::make(2)
+                    ->schema($this->fields)
+            ])
             ->statePath('data');
     }
 

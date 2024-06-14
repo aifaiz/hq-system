@@ -12,6 +12,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Contracts\View\View;
+use Filament\Tables\View\TablesRenderHook;
+use Filament\Actions\Action;
 
 class DistributorUserResource extends Resource
 {
@@ -54,6 +58,12 @@ class DistributorUserResource extends Resource
 
     public static function table(Table $table): Table
     {
+        // add extra button beside search input
+        // FilamentView::registerRenderHook(
+        //     TablesRenderHook::TOOLBAR_SEARCH_AFTER,
+        //     fn (): View => view('testing'),
+        // );
+
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')

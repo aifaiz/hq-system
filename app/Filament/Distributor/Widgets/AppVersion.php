@@ -6,6 +6,6 @@ use Filament\Widgets\Widget;
 
 class AppVersion extends Widget
 {
-    protected static ?int $sort = -2;
+    protected static ?int $sort = 100;
     protected static string $view = 'filament.distributor.widgets.app-version';
 }

@@ -26,6 +26,11 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-bolt';
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form

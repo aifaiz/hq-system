@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Backend\Widgets\AccountWidget;
 use App\Filament\Distributor\Widgets\AppVersion;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -38,8 +39,8 @@ class BackendPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Backend/Widgets'), for: 'App\\Filament\\Backend\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
+                AccountWidget::class,
                 AppVersion::class,
             ])
             ->middleware([
