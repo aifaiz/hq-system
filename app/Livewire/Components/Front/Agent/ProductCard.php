@@ -11,11 +11,13 @@ class ProductCard extends Component
     public $description;
     public $price;
     public $enableOrder;
+    public $image;
 
-    public function mount($productid, $name, $description, $price, $enableorder)
+    public function mount($productid, $image, $name, $description, $price, $enableorder)
     {
         $this->productid = (int)$productid;
         $this->name = $name;
+        $this->image = $image;
         $this->description = $description;
         $this->price = $price;
         $this->enableOrder = $enableorder;

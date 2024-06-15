@@ -69,6 +69,9 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->sortable(),
+                Tables\Columns\ImageColumn::make('cover_image')
+                    ->circular()
+                    ->size(60,60),
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),

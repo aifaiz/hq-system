@@ -2,9 +2,9 @@
     <div x-show="summary.isLoading" class="mx-auto max-w-screen-md px-6">
         <livewire:components.skeleton/>
     </div>
-    <section x-data="{cart: $store.cart}" x-show="!summary.isLoading" class="bg-white py-8 antialiased dark:bg-gray-900 md:pt-8 pb-16">
+    <section x-data="{cart: $store.cart}" x-show="!summary.isLoading" class="bg-white pt-2 antialiased dark:bg-gray-900 md:pt-4 pb-16">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
-            <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-6">Shopping Cart</h2>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-6">Checkout Items</h2>
 
             <div class="grid gap-6 lg:grid-cols-3">
                 <div class="lg:col-span-2">
@@ -12,8 +12,7 @@
                         <div class="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
                             <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                                 <a href="#" class="shrink-0 md:order-1">
-                                    <img class="h-20 w-20 dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="imac image" />
-                                    <img class="hidden h-20 w-20 dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="imac image" />
+                                    <img x-show="item.image" class="rounded-lg w-20 object-cover" :src="item.image" :alt="item.name" />
                                 </a>
 
                                 <label for="counter-input" class="sr-only">Choose quantity:</label>
@@ -61,10 +60,9 @@
                         </div>
 
                     </template>
-                    {{-- @foreach($items as $i)
-                        <livewire:components.front.agent.cart-item :product="$i" />
-                    @endforeach --}}
-                </div>
+                    
+                    <livewire:components.front.agent.cart-customer-details />
+                </div><!-- col span 2 -->
                 
                 <livewire:components.front.agent.cart-summary-card :refcode="$refcode" />
 
@@ -87,6 +85,9 @@
 <script>
 let orderUrl = "{{route('agent.product', ['refcode'=>$refcode])}}"
 document.addEventListener('livewire:initialized', async () => {
+    let dprice = parseFloat("{{$deliveryPrice}}")
+    $store.cart.deliveryPrice = dprice
+    //console.log('dprice', dprice)
     //let setItem = await $wire.setItem($store.cart.items)
     //console.log('items', $store.cart.items, setItem)
     //console.log('loading', $store.cartSummary.isLoading)

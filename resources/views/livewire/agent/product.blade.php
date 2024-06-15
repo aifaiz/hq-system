@@ -17,6 +17,7 @@
               description="{{$p->description}}"
               price="{{$p->price}}"
               enableorder="{{$enableOrder}}"
+              image="{{$p->cover_image}}"
             />
           @endforeach
         </div>

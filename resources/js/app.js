@@ -76,7 +76,42 @@ document.addEventListener('alpine:init', () => {
     });
 
     Alpine.store('cartSummary', {
-        isLoading: true
+        isLoading: true,
+        form: Alpine.$persist({
+            name: '',
+            phone: '',
+            email: '',
+            address: ''
+        }).as('customerDetails'),
+
+        // validations. return false if invalid
+        validateEmail(email){
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let isValid = emailRegex.test(email)
+            if(!isValid){
+                return false
+            }
+
+            return true
+        },
+
+        validatePhone(phone){
+            const regex = /^01\d{8,}$/;
+            if (!regex.test(phone)) {
+                return false
+            }
+            return true
+        },
+
+        validateEmpty(value){
+            if(value == ''){
+                return false
+            }
+
+            return true
+        }
+
+        //end validations. return false if invalid
     });
 });
 

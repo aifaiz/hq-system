@@ -1,6 +1,8 @@
 <?php
 namespace App\Helpers;
 
+use App\Models\DistributorSetting;
+
 class SettingsHelper
 {
     /* 
@@ -19,6 +21,11 @@ class SettingsHelper
                 'type'=>'text',
                 'key'=>'TOYYIBPAY_CATEGORY',
             ],
+            [
+                'label'=>'Delivery Price',
+                'type'=>'text',
+                'key'=>'DELIVERY_PRICE'
+            ]
             // [
             //     'label'=>'Enable Order',
             //     'type'=>'select',
@@ -53,5 +60,10 @@ class SettingsHelper
                 'key'=>'DELIVERY_PRICE',
             ],
         ];
+    }
+
+    public static function getDistributorSettings($distributorID)
+    {
+        return DistributorSetting::where('distributor_id', $distributorID)->pluck('sval','skey');
     }
 }

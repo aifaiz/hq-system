@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Agent;
 
+use App\Helpers\SettingsHelper;
 use App\Models\AgentUser;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -12,6 +13,8 @@ class CartSummary extends Component
     public $agent;
     public $enableOrder;
     public $items = [];
+    private $settings = [];
+    public $deliveryPrice = 10;
 
     public function mount($refcode)
     {
@@ -21,6 +24,9 @@ class CartSummary extends Component
         if(!$this->agent):
             abort(404);
         endif;
+
+        $this->settings = SettingsHelper::getDistributorSettings($this->agent->distributor_id);
+        $this->deliveryPrice = $this->settings['DELIVERY_PRICE'];
 
         $this->enableOrder = $this->agent->enable_order;
         
