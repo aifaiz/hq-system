@@ -56,6 +56,7 @@ class ProductResource extends Resource
                                         Forms\Components\FileUpload::make('image')
                                             ->directory('products')
                                             ->image()
+                                            ->required()
                                     ])
                             ])
                             ->columnSpan(1)

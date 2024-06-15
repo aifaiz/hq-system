@@ -1,9 +1,9 @@
-<section class="bg-white py-8 antialiased dark:bg-gray-900">
+<section class="bg-white pb-16 antialiased dark:bg-gray-900">
   <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Ahmad Agent Shop</h2>
 
-    <div x-data="{cart: $store.cart}">
-      <div x-show="cart.added" class="mt-4 w-full text-white bg-green-500 p-3 rounded">Items added</div>
+    <div x-data="{cart: $store.cart}" class="fixed top-14 right-6">
+      <livewire:components.front.agent.cart-toast />
     </div>
 
     <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
