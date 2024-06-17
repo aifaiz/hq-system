@@ -30,4 +30,9 @@ class Product extends Model
         $firstImage = $this->images()->first();
         return $firstImage ? $firstImage->image : null;
     }
+
+    public function distributorProductQtys()
+    {
+        return $this->hasMany(DistributorProductQty::class);
+    }
 }

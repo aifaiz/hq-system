@@ -1,4 +1,4 @@
-<div class="min-w-0 flex-1 space-y-8">
+<div id="customerDetails" class="min-w-0 flex-1 space-y-8">
     <div class="grid lg:grid-cols-2 gap-6">
         <div class="space-y-4">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Payment</h3>
@@ -36,12 +36,13 @@
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-                <label for="your_name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Your name </label>
-                <input x-model="summary.form.name" type="text" id="your_name" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Ahmad Albab" required />
+                <label for="your_name" :class="summary.errorMsg.name ? 'input-label-error' : 'input-label'"> Your name </label>
+                <input x-model="summary.form.name" type="text" id="your_name" class="text-input" placeholder="Ahmad Albab" required />
+                <p x-show="summary.errorMsg.name" class="mt-2 text-sm text-red-600 dark:text-red-500" x-text="summary.errorMsg.name"></p>
             </div>
 
             <div>
-                <label for="phone-input-3" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Phone Number* </label>
+                <label for="phone-input-3" :class="summary.errorMsg.phone ? 'input-label-error' : 'input-label'"> Phone Number</label>
                 <div class="flex items-center">
                     <span class="z-10 inline-flex shrink-0 items-center rounded-s-lg border border-gray-300 bg-gray-100 px-4 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-700">+6</span>
                     
@@ -49,17 +50,19 @@
                         <input x-model="summary.form.phone" type="text" id="phone-input" class="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:border-s-gray-700  dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500" placeholder="01XXXXXXXX" required />
                     </div>
                 </div>
+                <p x-show="summary.errorMsg.phone" class="mt-2 text-sm text-red-600 dark:text-red-500" x-text="summary.errorMsg.phone"></p>
             </div>
 
             <div>
-                <label for="your_email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Your email* </label>
+                <label for="your_email" :class="summary.errorMsg.email ? 'input-label-error' : 'input-label'"> Your email</label>
                 <input x-model="summary.form.email" type="email" id="your_email" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="name@flowbite.com" required />
+                <p x-show="summary.errorMsg.email" class="mt-2 text-sm text-red-600 dark:text-red-500" x-text="summary.errorMsg.email"></p>
             </div>
 
             <div>
-                <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                <label for="address" :class="summary.errorMsg.address ? 'input-label-error' : 'input-label'">Address</label>
                 <textarea x-model="summary.form.address" id="address" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your full address"></textarea>
-
+                <p x-show="summary.errorMsg.address" class="mt-2 text-sm text-red-600 dark:text-red-500" x-text="summary.errorMsg.address"></p>
             </div>
 
         </div>

@@ -2,9 +2,7 @@
   <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Ahmad Agent Shop</h2>
 
-    <div x-data="{cart: $store.cart}" class="fixed top-14 right-6">
-      <livewire:components.front.agent.cart-toast />
-    </div>
+    <livewire:components.front.agent.cart-toast />
 
     <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
       <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
@@ -18,6 +16,7 @@
               price="{{$p->price}}"
               enableorder="{{$enableOrder}}"
               image="{{$p->cover_image}}"
+              max="{{$p->qty ?? 0}}"
             />
           @endforeach
         </div>

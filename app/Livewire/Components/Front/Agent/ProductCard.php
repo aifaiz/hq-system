@@ -12,8 +12,9 @@ class ProductCard extends Component
     public $price;
     public $enableOrder;
     public $image;
+    public $max;
 
-    public function mount($productid, $image, $name, $description, $price, $enableorder)
+    public function mount($productid, $image, $name, $description, $price, $enableorder, $max)
     {
         $this->productid = (int)$productid;
         $this->name = $name;
@@ -21,6 +22,7 @@ class ProductCard extends Component
         $this->description = $description;
         $this->price = $price;
         $this->enableOrder = $enableorder;
+        $this->max = $max;
     }
 
     public function render()
