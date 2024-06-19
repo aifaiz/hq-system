@@ -28,8 +28,8 @@
 }
 
 .toast-success{
-    @apply flex items-center w-full max-w-md p-4 text-green-600 bg-green-200 divide-x rtl:divide-x-reverse divide-green-400 rounded-lg shadow dark:text-green-400 dark:divide-green-700 dark:bg-green-800;
+    @apply flex items-center w-full max-w-md p-4 text-green-600 bg-green-200 rounded-lg shadow dark:text-green-400 dark:bg-green-800;
 }
 .toast-danger{
-    @apply flex items-center w-full max-w-md p-4 text-white bg-red-600 divide-x rtl:divide-x-reverse divide-red-200 rounded-lg shadow dark:text-red-400 dark:divide-red-700 dark:bg-red-800;
+    @apply flex items-center w-full max-w-md p-4 text-white bg-red-600 rounded-lg shadow dark:text-red-400 dark:divide-red-700 dark:bg-red-800;
 }

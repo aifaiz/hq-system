@@ -14,7 +14,7 @@ document.addEventListener('alpine:init', () => {
             // Automatically remove the toast after a certain time
             setTimeout(() => {
                 this.removeToast(id);
-            }, 3000); // Display duration in milliseconds
+            }, 1000); // Display duration in milliseconds
         },
         removeToast(id) {
             const toast = this.toasts.find(t => t.id === id);
