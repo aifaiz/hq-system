@@ -1,4 +1,19 @@
-<div x-data="{cart: $store.cart}" class="space-y-6 fixed top-0 right-6 max-w-sm w-3/4 lg:w-full">
+<div x-data="{tm: $store.toastManager}" class="space-y-4 fixed top-0 right-6 max-w-sm w-3/4 lg:w-full">
+    <template x-for="(toast, index) in tm.toasts" :key="toast.id">
+        <div 
+            x-show="toast.visible" 
+            x-transition:leave="transition ease-in duration-1000"
+            x-transition:leave-start="opacity-100" 
+            x-transition:leave-end="opacity-0" 
+            :class="toast.type"
+            @click="tm.removeToast(toast.id)"
+        >
+            <div class="ps-4 text-sm font-normal" x-text="toast.message"></div>
+        </div>
+    </template>
+</div>
+
+{{-- <div x-data="{cart: $store.cart}" class="space-y-6 fixed top-0 right-6 max-w-sm w-3/4 lg:w-full">
     <template x-if="cart.added">
         <div id="toast-simple" class="flex items-center w-full max-w-md p-4 space-x-4 rtl:space-x-reverse text-green-600 bg-green-200 divide-x rtl:divide-x-reverse divide-green-400 rounded-lg shadow dark:text-green-400 dark:divide-green-700 space-x dark:bg-green-800" role="alert">
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -17,4 +32,4 @@
             <div class="ps-4 text-sm font-normal">Not enough stock.</div>
         </div>
     </template>
-</div>
+</div> --}}
