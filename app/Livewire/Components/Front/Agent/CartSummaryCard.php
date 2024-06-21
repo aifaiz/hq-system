@@ -14,12 +14,16 @@ class CartSummaryCard extends Component
     public $distributorID;
     public array $items = [];
     public array $customer = [];
+    public $agentID;
 
     public function mount($refcode)
     {
         $this->refcode = $refcode;
-        $this->distributorID = AgentUser::where('refcode', $refcode)->value('distributor_id');
-        // dd($this->distributorID);
+        $agent = AgentUser::where('refcode', $refcode)->first();
+        $this->agentID = $agent->id;
+        $this->distributorID = $agent->distributor_id;
+        // dd($this->distributorID, $this->agentID);
+        // Log::debug('cartsum', ['agent'=>$this->agentID,'distr'=>$this->distributorID]);
     }
 
     // public function getItems()
@@ -64,10 +68,16 @@ class CartSummaryCard extends Component
 
     public function processCart()
     {
-        // Log::debug('cart', ['customer'=>$this->customer,'items'=>$this->items]);
+        // Log::debug('cart', ['aid'=>$this->agentID,'customer'=>$this->customer,'items'=>$this->items]);
+        // return false;
         $orderService = new OrderService;
-        $orderService->processOrder($this->items, $this->customer);
-        return 'https://toyyibpay.com';
+        $url = $orderService->processOrder(
+            $this->agentID, 
+            $this->distributorID, 
+            $this->items, 
+            $this->customer
+        );
+        return $url;
     }
 
     public function render()

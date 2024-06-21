@@ -13,6 +13,7 @@ class Product extends Component
     public $products;
     public $agent;
     public $enableOrder = 'NO';
+    public $checkoutUrl = '#';
 
     public function mount($refcode)
     {
@@ -23,6 +24,7 @@ class Product extends Component
             abort(404);
         endif;
 
+        $this->checkoutUrl = route('agent.cart', ['refcode'=>$this->refcode]);
         $this->enableOrder = $this->agent->enable_order;
         $distributorID = $this->agent->distributor_id;
         $products = ModelsProduct::with('images')->select('products.*', 'distributor_product_qties.qty')

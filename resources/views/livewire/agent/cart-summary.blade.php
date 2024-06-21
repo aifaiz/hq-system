@@ -96,26 +96,22 @@ let orderUrl = "{{route('agent.product', ['refcode'=>$refcode])}}"
 document.addEventListener('livewire:initialized', async () => {
     let dprice = parseFloat("{{$deliveryPrice}}")
     $store.cart.deliveryPrice = dprice
-    //console.log('dprice', dprice)
-    //let setItem = await $wire.setItem($store.cart.items)
-    //console.log('items', $store.cart.items, setItem)
-    //console.log('loading', $store.cartSummary.isLoading)
-    //if(setItem){
-        setTimeout(()=>{
-            $store.cartSummary.isLoading = false
-            //console.log('loading', $store.cartSummary.isLoading)
-        }, 1000)
-    //}
+    
+    setTimeout(()=>{
+        $store.cartSummary.isLoading = false
+    }, 1000)
 
     $watch('$store.cart.removed', (value) =>{
-        //console.log('is removed', {value,items:$store.cart.items.length})
-        //$wire.setItem($store.cart.items)
+        $store.cartSummary.isLoading = true
+
         if($store.cart.items.length <= 0){
-            //console.log('cart empty', orderUrl)
             Livewire.navigate(orderUrl)
         }
 
-        $store.cart.removed = false
+        setTimeout(()=>{
+            $store.cartSummary.isLoading = false
+            $store.cart.removed = false
+        }, 1500)
     })
 })
 </script>

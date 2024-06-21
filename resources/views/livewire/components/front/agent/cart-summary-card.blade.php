@@ -4,10 +4,12 @@
 
         <div class="space-y-4">
             <div class="space-y-2">
+                <template x-if="cart.items > 0">
                 <dl class="flex items-center justify-between gap-4">
                     <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Delivery</dt>
                     <dd class="text-base font-medium text-gray-900 dark:text-white">RM <span x-text="cart.deliveryPrice"></span></dd>
                 </dl>
+                </template>
 
                 {{-- <dl class="flex items-center justify-between gap-4">
                     <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Savings</dt>

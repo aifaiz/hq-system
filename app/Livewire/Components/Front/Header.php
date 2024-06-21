@@ -11,6 +11,7 @@ class Header extends Component
     public function mount($enableorder = 'NO')
     {
         $this->enableOrder = $enableorder;
+        
     }
 
     public function render()

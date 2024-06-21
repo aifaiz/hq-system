@@ -4,5 +4,6 @@ import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.e
 
 import './toast';
 import './cart';
+import './cart-summary';
 
 Livewire.start()

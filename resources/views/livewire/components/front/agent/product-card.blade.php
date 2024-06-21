@@ -39,7 +39,11 @@
         </button>
         @else
         <button type="button" disabled class="inline-flex w-full items-center justify-center rounded-lg bg-gray-400 px-5 py-2.5 text-sm font-medium  text-white hover:bg-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-            Unavailable
+            @if($enableOrder == 'YES')
+            <span>Out Of Stock</span>
+            @else
+            <span>Unavailable</span>
+            @endif
         </button>
         @endif
     </div>

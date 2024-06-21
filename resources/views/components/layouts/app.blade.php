@@ -8,7 +8,7 @@
         @vite(['resources/css/app.css','resources/js/app.js'])
     </head>
     <body>
-        <livewire:components.front.header enableorder="{{$enableOrder}}" />
+        <livewire:components.front.header enableorder="{{$enableOrder ?? 'NO'}}" />
         <div>
             {{ $slot }}
         </div>

@@ -23,7 +23,7 @@ document.addEventListener('alpine:init', () => {
                 // Remove the toast from the array after the fade-out transition
                 setTimeout(() => {
                     this.toasts = this.toasts.filter(t => t.id !== id);
-                }, 2000); // Duration of the fade-out transition
+                }, 3000); // Duration of the fade-out transition
             }
         }
     })

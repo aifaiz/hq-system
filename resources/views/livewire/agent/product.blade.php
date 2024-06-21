@@ -1,4 +1,4 @@
-<section class="bg-white pb-16 antialiased dark:bg-gray-900">
+<section x-data="{cart: $store.cart}" x-init="cart.checkoutUrl = '{{$checkoutUrl}}'" class="bg-white pb-16 antialiased dark:bg-gray-900">
   <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Ahmad Agent Shop</h2>
 
