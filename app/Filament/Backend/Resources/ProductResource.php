@@ -31,8 +31,14 @@ class ProductResource extends Resource
                             ->columns(2)
                             ->schema([
                                 Forms\Components\TextInput::make('name')
-                                    ->required(),
+                                    ->label('Product Name')
+                                    ->required()
+                                    ->columnSpanFull(),
                                 Forms\Components\TextInput::make('price')
+                                    ->required()
+                                    ->numeric()
+                                    ->prefix('RM'),
+                                Forms\Components\TextInput::make('distributor_price')
                                     ->required()
                                     ->numeric()
                                     ->prefix('RM'),
@@ -77,7 +83,12 @@ class ProductResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->label('Default Price')
+                    ->label('Retail Price')
+                    ->prefix('RM')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('distributor_price')
+                    ->label('Distributor Price')
                     ->prefix('RM')
                     ->sortable()
                     ->searchable()

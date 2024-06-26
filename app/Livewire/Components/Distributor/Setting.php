@@ -46,6 +46,11 @@ class Setting extends Component implements HasForms, HasActions
                     ->label($k['label'])
                     ->required()
                     ->options($k['options']);
+            elseif($k['type'] == 'textarea'):
+                $this->fields[$key] = Forms\Components\Textarea::make($key)
+                    ->label($k['label'])
+                    ->helperText($k['helpertext'] ?? '')
+                    ->required();
             else:
                 $this->fields[$key] = Forms\Components\TextInput::make($key)->label($k['label'])->required();
             endif;

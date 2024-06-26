@@ -19,7 +19,7 @@ class CommissionPayResource extends Resource
 {
     protected static ?string $model = CommissionPay::class;
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $navigationIcon = 'heroicon-s-currency-dollar';
 

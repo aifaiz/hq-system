@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('stock_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('distributor_id');
+            $table->decimal('delivery_price', 10,2)->default(0)->nullable();
+            $table->decimal('sub_total', 10,2)->default(1)->nullable();
             $table->decimal('total_amount', 10,2)->default(1);
             $table->char('pay_status')->default('DUE')->nullable();
             $table->char('deliver_status')->default('pending')->nullable();

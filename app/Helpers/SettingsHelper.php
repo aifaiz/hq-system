@@ -25,6 +25,12 @@ class SettingsHelper
                 'label'=>'Delivery Price',
                 'type'=>'text',
                 'key'=>'DELIVERY_PRICE'
+            ],
+            [
+                'label'=>'Business Address',
+                'type'=>'textarea',
+                'key'=>'DELIVERY_ADDRESS',
+                'helpertext'=>'Used for delivery and invoicing'
             ]
             // [
             //     'label'=>'Enable Order',
@@ -55,7 +61,7 @@ class SettingsHelper
                 'key'=>'TOYYIBPAY_CATEGORY_ID',
             ],
             [
-                'label'=>'Delivery Price',
+                'label'=>'Distributor Delivery Price',
                 'type'=>'text',
                 'key'=>'DELIVERY_PRICE',
             ],
