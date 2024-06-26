@@ -23,7 +23,7 @@ class DistributorUserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-user';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationLabel = 'Distributors';
 

@@ -26,6 +26,28 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-bolt';
 
+    public static function getNavigationBadge(): ?string
+    {
+        $distributorID = auth()->id();
+        return static::getModel()::where('delivery_status', 'pending')
+            ->where('pay_status', 'PAID')
+            ->where('distributor_id', $distributorID)->count();
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Unprocessed Orders';
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        $distributorID = auth()->id();
+        $pendingCount = static::getModel()::where('delivery_status', 'pending')
+            ->where('pay_status', 'PAID')
+            ->where('distributor_id', $distributorID)->count();
+        return $pendingCount > 0 ? 'danger' : 'primary';
+    }
+
     public static function canCreate(): bool
     {
         return false;
@@ -51,20 +73,27 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\IconColumn::make('pay_status')
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Order date')
+                    ->date('d/m/Y')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('pay_status')
                     ->sortable()
-                    ->icon(fn (string $state): string => match ($state) {
-                        'DUE' => 'heroicon-o-x-circle',
-                        'PAID' => 'heroicon-o-check-circle',
-                    })
+                    ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'DUE' => 'danger',
                         'PAID' => 'success',
                         default => 'danger',
                     }),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->date('d/m/Y')
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('delivery_status')
+                    ->sortable()
+                    ->searchable()
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending' => 'danger',
+                        'sent' => 'success',
+                        default => 'danger',
+                    }),
                 Tables\Columns\TextColumn::make('grand_total')
                     ->prefix('RM ')
                     ->sortable()
@@ -78,9 +107,11 @@ class OrderResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('customer_name')
+                    ->label('Customer')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('customer_phone')
+                    ->label('Phone')
                     ->sortable()
                     ->searchable()
             ])
@@ -91,7 +122,7 @@ class OrderResource extends Resource
                     'DUE' => 'Due',
                 ]),
                 Filters\SelectFilter::make('delivery_status')
-                    ->label('Processed')
+                    ->label('Delivery')
                     ->options([
                     'sent' => 'Sent',
                     'pending' => 'Pending',

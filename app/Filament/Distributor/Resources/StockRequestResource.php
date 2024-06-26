@@ -31,6 +31,24 @@ class StockRequestResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-c-tag';
 
+    public static function getNavigationBadge(): ?string
+    {
+        $distributorID = auth()->id();
+        return static::getModel()::where('deliver_status', 'sent')
+            ->where('pay_status', 'PAID')
+            ->where('distributor_id', $distributorID)->count();
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Stock Sent';
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 0 ? 'warning' : 'primary';
+    }
+
     public static function canEdit(Model $record): bool
     {
         return false;
@@ -146,13 +164,13 @@ class StockRequestResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('items_count')->counts('items')
                     ->label('Product Count')
-                    ->sortable()
-                    ->searchable(),
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('deliver_status')
-                    ->label('Received')
+                    ->label('Shipment')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'pending' => 'danger',
+                        'sent'=> 'warning',
                         'received' => 'success',
                         default => 'danger',
                     })
@@ -226,6 +244,7 @@ class StockRequestResource extends Resource
                             ->badge()
                             ->color(fn (string $state): string => match ($state) {
                                 'pending' => 'danger',
+                                'sent' => 'warning',
                                 'received' => 'success',
                                 default => 'danger',
                             })

@@ -23,4 +23,9 @@ class StockRequest extends Model
     {
         return $this->hasMany(StockRequestItem::class);
     }
+
+    public function distributor()
+    {
+        return $this->belongsTo(DistributorUser::class, 'distributor_id');
+    }
 }

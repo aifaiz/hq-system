@@ -10,5 +10,5 @@ class Setting extends Page
 
     protected static string $view = 'filament.backend.pages.setting';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 5;
 }
