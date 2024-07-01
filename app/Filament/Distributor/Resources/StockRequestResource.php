@@ -5,10 +5,12 @@ namespace App\Filament\Distributor\Resources;
 use App\Filament\Distributor\Resources\StockRequestResource\Pages;
 use App\Filament\Distributor\Resources\StockRequestResource\RelationManagers;
 use App\Models\DistributorProductQty;
+use App\Models\DistributorUser;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\StockRequest;
 use App\Models\StockRequestItem;
+use App\Models\User;
 use App\Services\StockService;
 use Filament\Facades\Filament;
 use Filament\Forms;
@@ -23,6 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
+use Filament\Notifications;
 use Filament\Notifications\Notification;
 
 class StockRequestResource extends Resource
@@ -203,6 +206,20 @@ class StockRequestResource extends Resource
 
                         $record->deliver_status = 'received';
                         $record->save();
+
+                        $distributor = DistributorUser::find($distributorID);
+                        $admins = User::all();
+
+                        Notification::make()
+                            ->title('Stock has been received')
+                            ->body($distributor->name .' has received the stock '. $record->ref)
+                            ->success()
+                            ->color('success')
+                            ->actions([
+                                Notifications\Actions\Action::make('view')
+                                    ->url('/backend/stock-requests/'.$record->id)
+                            ])
+                            ->sendToDatabase($admins);
                     })
                     ->hidden(fn(StockRequest $record)=> $record->deliver_status === 'received'),
                 Tables\Actions\ViewAction::make(),
@@ -261,6 +278,7 @@ class StockRequestResource extends Resource
                                         ->action(function(StockRequest $record){
                                             $requestID = $record->id;
                                             $distributorID = $record->distributor_id;
+                                            $distributor = DistributorUser::find($distributorID);
                                             self::stockReceived($requestID, $distributorID);
 
                                             Notification::make()
@@ -272,6 +290,19 @@ class StockRequestResource extends Resource
 
                                             $record->deliver_status = 'received';
                                             $record->save();
+
+                                            $admins = User::all();
+
+                                            Notification::make()
+                                                ->title('Stock has been received')
+                                                ->body($distributor->name .' has received the stock '. $record->ref)
+                                                ->success()
+                                                ->color('success')
+                                                ->actions([
+                                                    Notifications\Actions\Action::make('view')
+                                                        ->url('/backend/stock-requests/'.$record->id)
+                                                ])
+                                                ->sendToDatabase($admins);
                                         })
                                         ->hidden(fn(StockRequest $record)=> $record->deliver_status === 'received')
                                 ]
