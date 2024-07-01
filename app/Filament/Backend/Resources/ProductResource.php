@@ -42,7 +42,7 @@ class ProductResource extends Resource
                                     ->required()
                                     ->numeric()
                                     ->prefix('RM'),
-                                Forms\Components\TextArea::make('description')
+                                Forms\Components\Textarea::make('description')
                                     ->columnSpanFull()
                             ])
                             ->columnSpan(2),

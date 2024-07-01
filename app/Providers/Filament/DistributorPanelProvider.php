@@ -59,6 +59,7 @@ class DistributorPanelProvider extends PanelProvider
             ], isPersistent: true)
             ->authGuard('distributor')
             ->login()
-            ->spa();
+            ->spa()
+            ->databaseNotifications();
     }
 }

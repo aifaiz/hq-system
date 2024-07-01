@@ -56,6 +56,8 @@ class BackendPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseNotifications()
+            ->spa();
     }
 }

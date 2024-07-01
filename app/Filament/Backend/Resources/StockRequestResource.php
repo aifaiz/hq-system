@@ -4,6 +4,7 @@ namespace App\Filament\Backend\Resources;
 
 use App\Filament\Backend\Resources\StockRequestResource\Pages;
 use App\Filament\Backend\Resources\StockRequestResource\RelationManagers;
+use App\Models\DistributorUser;
 use App\Models\StockRequest;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -197,6 +198,8 @@ class StockRequestResource extends Resource
                                         ->modalSubmitActionLabel('Confirm PAID')
                                         ->action(function(StockRequest $record){
 
+                                            $distributor = DistributorUser::find($record->distributor_id);
+
                                             Notification::make()
                                                 ->title('Success')
                                                 ->body('Marked as paid.')
@@ -206,6 +209,11 @@ class StockRequestResource extends Resource
 
                                             $record->pay_status = 'PAID';
                                             $record->save();
+
+                                            Notification::make()
+                                                ->title('Stock Request '.$record->ref.' is marked PAID')
+                                                ->color('success')
+                                                ->sendToDatabase($distributor);
                                         })
                                         ->hidden(fn(StockRequest $record)=> $record->pay_status === 'PAID'),
                                     Infolists\Components\Actions\Action::make('due')
