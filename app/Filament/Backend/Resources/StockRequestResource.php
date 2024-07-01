@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
+use Filament\Notifications;
 use Filament\Notifications\Notification;
 
 class StockRequestResource extends Resource
@@ -212,8 +213,11 @@ class StockRequestResource extends Resource
 
                                             $distributor->notify(
                                                 Notification::make()
-                                                ->title('Stock Request '.$record->ref.' is marked PAID')
+                                                ->title('Stock Request is PAID')
+                                                ->body('Your stock request '.$record->ref.' has been paid')
                                                 ->color('success')
+                                                ->success()
+                                                ->icon('heroicon-c-check')
                                                 ->toDatabase()
                                             );
                                         })

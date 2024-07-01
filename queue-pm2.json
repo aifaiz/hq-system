@@ -1,0 +1,14 @@
+{
+    "apps": [
+        {
+            "name": "hqsystem-queue",
+            "script": "artisan",
+            "args": ["queue:work","--tries=5","--sleep=1"],
+            "instances": 1,
+            "wait_ready": true,
+            "autorestart": true,
+            "max_memory_restart": "70M",
+            "interpreter": "php"
+        }
+    ]
+}
