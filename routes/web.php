@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Agent;
+use App\Livewire\Distributor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\ToyyibPayController;
@@ -17,3 +18,7 @@ Route::group(['prefix'=>'toyyibpay'], function(){
     Route::get('agent/return', [ToyyibPayController::class, 'validatePayment'])->name('toyyibpay.agent.order.return');
     Route::get('agent/callback', [ToyyibPayController::class, 'validateCallback'])->name('toyyibpay.order.callback');
 });
+
+// Distributor Routes
+Route::get('register-agent/{refcode}', Distributor\RegisterAgent::class)->name('distributor.reg.agent');
+// Distributor Routes

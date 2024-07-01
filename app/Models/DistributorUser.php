@@ -23,7 +23,8 @@ class DistributorUser extends Authenticatable implements FilamentUser
         'phone',
         'agent_commission',
         'password',
-        'status'
+        'status',
+        'refcode'
     ];
 
     /**

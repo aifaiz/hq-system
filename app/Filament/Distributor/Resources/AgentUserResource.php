@@ -32,6 +32,11 @@ class AgentUserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-users';
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
     public static function getEloquentQuery(): Builder
     {
         $user = auth()->user();
@@ -73,9 +78,11 @@ class AgentUserResource extends Resource
                 Forms\Components\TextInput::make('comm_amount')
                     ->label('Commission Amount')
                     ->default(10)
-                    ->prefix('RM'),
+                    ->prefix('RM')
+                    ->readOnly()
+                    ->hiddenOn('edit'),
                 Forms\Components\TextInput::make('password')
-                    ->visibleOn('create')
+                    ->hiddenOn('edit')
                     ->required()
                     ->password(),
                 Forms\Components\Select::make('status')

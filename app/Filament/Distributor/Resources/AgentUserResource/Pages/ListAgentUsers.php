@@ -12,8 +12,25 @@ class ListAgentUsers extends ListRecords
 
     protected function getHeaderActions(): array
     {
+        $refcode = auth()->user()->refcode;
+        $url = route('distributor.reg.agent', ['refcode'=>$refcode]);
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
+            Actions\Action::make('New Agent')
+                ->color('info')
+                ->icon('heroicon-c-plus')
+                ->url($url)
+                ->openUrlInNewTab()
         ];
     }
+
+    // public function getSubheading(): ?string
+    // {
+    //     $refcode = auth()->user()->refcode;
+    //     $url = route('distributor.reg.agent', ['refcode'=>$refcode]);
+    //     $registerAgent = 'Register Agent Link: '.$url;
+    //     return $registerAgent;
+    // }
+
+
 }

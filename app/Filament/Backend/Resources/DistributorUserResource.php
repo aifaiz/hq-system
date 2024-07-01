@@ -16,6 +16,8 @@ use Filament\Support\Facades\FilamentView;
 use Illuminate\Contracts\View\View;
 use Filament\Tables\View\TablesRenderHook;
 use Filament\Actions\Action;
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
 
 class DistributorUserResource extends Resource
 {
@@ -34,7 +36,18 @@ class DistributorUserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function($state, Set $set){
+                        $slug = Str::slug($state);
+                        $set('refcode', $slug);
+                    }),
+                Forms\Components\TextInput::make('refcode')
+                    ->label('Refferral Code')
+                    ->required()
+                    ->regex('/^[a-zA-Z0-9-]+$/')
+                    ->unique()
+                    ->helperText('code used to register agent. Lowercase, no space, "-" allowed'),
                 Forms\Components\TextInput::make('email')
                     ->required(),
                 Forms\Components\TextInput::make('phone')
@@ -46,7 +59,8 @@ class DistributorUserResource extends Resource
                     ->prefix('RM'),
                 Forms\Components\TextInput::make('password')
                     ->required()
-                    ->password(),
+                    ->password()
+                    ->hiddenOn('edit'),
                 Forms\Components\Select::make('status')
                     ->default(1)
                     ->options([
