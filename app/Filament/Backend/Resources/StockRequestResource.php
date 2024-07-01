@@ -218,6 +218,10 @@ class StockRequestResource extends Resource
                                                 ->color('success')
                                                 ->success()
                                                 ->icon('heroicon-c-check')
+                                                ->actions([
+                                                    Notifications\Actions\Action::make('view')
+                                                        ->url('/distributor/stock-requests/'.$record->id.'/view')
+                                                ])
                                                 ->toDatabase()
                                             );
                                         })

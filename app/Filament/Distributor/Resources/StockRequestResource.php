@@ -227,7 +227,7 @@ class StockRequestResource extends Resource
         return [
             'index' => Pages\ListStockRequests::route('/'),
             'create' => Pages\CreateStockRequest::route('/create'),
-            'view' => Pages\ViewStockRequest::route('/{record}}/view'),
+            'view' => Pages\ViewStockRequest::route('/{record}/view'),
             // 'edit' => Pages\EditStockRequest::route('/{record}/edit'),
         ];
     }

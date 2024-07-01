@@ -7,7 +7,7 @@
             "instances": 1,
             "wait_ready": true,
             "autorestart": true,
-            "max_memory_restart": "70M",
+            "max_memory_restart": "90M",
             "interpreter": "php"
         }
     ]
