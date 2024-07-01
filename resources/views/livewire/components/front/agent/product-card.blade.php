@@ -1,11 +1,11 @@
 <div x-data class="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-    <a href="#" class="overflow-hidden rounded">
+    <div class="overflow-hidden rounded">
         @if($image)
             <img class="mx-auto w-full h-52 rounded-lg object-cover" src="/storage/{{$image}}" alt="{{$name}}" />
         @else
             <img class="mx-auto h-44 w-44 object-cover" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="{{$name}}" />
         @endif
-    </a>
+    </div>
     <div>
         <a href="{{$url}}" class="inline-block h-12 max-h-24 text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">
             {{$name}}
