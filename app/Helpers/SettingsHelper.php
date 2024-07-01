@@ -50,16 +50,16 @@ class SettingsHelper
     public static function getAdminKeys()
     {
         return [
-            [
-                'label'=>'Toyyibpay Secret',
-                'type'=>'text',
-                'key'=>'TOYYIBPAY_SECRET',
-            ],
-            [
-                'label'=>'Toyyibpay Category',
-                'type'=>'text',
-                'key'=>'TOYYIBPAY_CATEGORY_ID',
-            ],
+            // [
+            //     'label'=>'Toyyibpay Secret',
+            //     'type'=>'text',
+            //     'key'=>'TOYYIBPAY_SECRET',
+            // ],
+            // [
+            //     'label'=>'Toyyibpay Category',
+            //     'type'=>'text',
+            //     'key'=>'TOYYIBPAY_CATEGORY_ID',
+            // ],
             [
                 'label'=>'Distributor Delivery Price',
                 'type'=>'text',
