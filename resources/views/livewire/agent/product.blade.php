@@ -11,12 +11,14 @@
             <livewire:components.front.agent.product-card 
               wire:key="product_{{$p->id}}" 
               productid="{{$p->id}}"
+              slug="{{$p->slug}}"
               name="{{$p->name}}"
               description="{{$p->short_desc}}"
               price="{{$p->price}}"
               enableorder="{{$enableOrder}}"
               image="{{$p->cover_image}}"
               max="{{$p->qty ?? 0}}"
+              refcode="{{$refcode}}"
             />
           @endforeach
         </div>

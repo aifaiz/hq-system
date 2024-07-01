@@ -7,7 +7,7 @@
         @endif
     </a>
     <div>
-        <a href="#" class="inline-block h-12 max-h-24 text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">
+        <a href="{{$url}}" class="inline-block h-12 max-h-24 text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">
             {{$name}}
         </a>
         <p class="lg:h-20 lg:mt-2 text-base font-normal text-gray-500 dark:text-gray-400">
