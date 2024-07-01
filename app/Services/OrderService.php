@@ -3,8 +3,11 @@ namespace App\Services;
 
 use App\Helpers\SettingsHelper;
 use App\Models\AgentUser;
+use App\Models\DistributorUser;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Filament\Notifications;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
 
 class OrderService
@@ -54,6 +57,22 @@ class OrderService
         $order->save();
 
         $freshOrder = $order->fresh();
+
+        $distributor = DistributorUser::find($order->distributor_id);
+
+        $distributor->notify(
+            Notification::make()
+                ->title('New Order RM '. number_format($freshOrder->grand_total))
+                ->body($freshOrder->customer_name .' has made an order')
+                ->color('warning')
+                ->warning()
+                ->icon('heroicon-s-truck')
+                ->actions([
+                    Notifications\Actions\Action::make('view')
+                        ->url('/distributor/orders/'.$freshOrder->id.'/view')
+                ])
+                ->toDatabase()
+        );
 
         $toyyibPay = new ToyyibpayService($settings['TOYYIBPAY_CATEGORY'], $settings['TOYYIBPAY_SECRET']);
         $response = $toyyibPay->createBill($freshOrder);

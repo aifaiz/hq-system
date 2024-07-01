@@ -164,6 +164,22 @@ class StockRequestResource extends Resource
                                     ->action(function(StockRequest $record){
                                         $record->deliver_status = 'sent';
                                         $record->save();
+
+                                        $distributor = DistributorUser::find($record->distributor_id);
+
+                                        $distributor->notify(
+                                            Notification::make()
+                                            ->title('Stock Request is SENT')
+                                            ->body('Your stock request '.$record->ref.' has been shipped')
+                                            ->color('warning')
+                                            ->warning()
+                                            ->icon('heroicon-s-truck')
+                                            ->actions([
+                                                Notifications\Actions\Action::make('view')
+                                                    ->url('/distributor/stock-requests/'.$record->id.'/view')
+                                            ])
+                                            ->toDatabase()
+                                        );
                                     })
                                     ->hidden(fn(StockRequest $record)=> ($record->pay_status == 'DUE' || $record->deliver_status == 'sent' || $record->deliver_status == 'received')),
                                 Infolists\Components\Actions\Action::make('pendingSent')
