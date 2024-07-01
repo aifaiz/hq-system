@@ -49,7 +49,7 @@ class ProductResource extends Resource
                                     ->columnSpanFull()
                                     ->helperText(function($state){
                                         $slug = $state ?? 'product-name';
-                                        return 'eg: '. route('agent.product.view', ['refcode'=>'test','slug'=>$slug]);
+                                        return 'eg: '. route('agent.product.view', ['refcode'=>'agent-name','slug'=>$slug]);
                                     })
                                     ->live(),
                                 Forms\Components\Grid::make(3)
