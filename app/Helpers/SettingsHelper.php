@@ -64,6 +64,7 @@ class SettingsHelper
                 'label'=>'Distributor Delivery Price',
                 'type'=>'text',
                 'key'=>'DELIVERY_PRICE',
+                'helpertext'=>'Delivery price when stock request'
             ],
         ];
     }

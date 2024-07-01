@@ -84,15 +84,6 @@ class DistributorUserResource extends Resource
                     ->label('Joined')
                     ->sortable()
                     ->date('d/m/Y'),
-                Tables\Columns\TextColumn::make('name')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->sortable()
-                    ->searchable(),
                 Tables\Columns\IconColumn::make('status')
                     ->icon(fn (string $state): string => match ($state) {
                         '0' => 'heroicon-o-x-circle',
@@ -102,7 +93,18 @@ class DistributorUserResource extends Resource
                         '0' => 'danger',
                         '1' => 'success',
                         default => 'danger',
-                    })
+                    }),
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('phone')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('agents_count')
+                    ->counts('agents')
             ])
             ->filters([
                 //

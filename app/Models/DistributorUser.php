@@ -54,4 +54,9 @@ class DistributorUser extends Authenticatable implements FilamentUser
     {
         return true;
     }
+
+    public function agents()
+    {
+        return $this->hasMany(AgentUser::class, 'distributor_id');
+    }
 }
