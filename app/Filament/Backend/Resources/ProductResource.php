@@ -7,6 +7,7 @@ use App\Filament\Backend\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -33,15 +34,39 @@ class ProductResource extends Resource
                                 Forms\Components\TextInput::make('name')
                                     ->label('Product Name')
                                     ->required()
-                                    ->columnSpanFull(),
-                                Forms\Components\TextInput::make('price')
+                                    ->columnSpanFull()
+                                    ->live(onBlur:true)
+                                    ->afterStateUpdated(function($state, Set $set){
+                                        $slug = \Illuminate\Support\Str::slug($state);
+                                        $set('slug', $slug);
+                                    }),
+                                Forms\Components\TextInput::make('slug')
+                                    ->label('Product URL (auto generated)')
+                                    ->readOnly()
+                                    ->prefix('AGENT_LINK')
                                     ->required()
-                                    ->numeric()
-                                    ->prefix('RM'),
-                                Forms\Components\TextInput::make('distributor_price')
-                                    ->required()
-                                    ->numeric()
-                                    ->prefix('RM'),
+                                    ->unique()
+                                    ->columnSpanFull()
+                                    ->helperText(function($state){
+                                        $slug = $state ?? 'product-name';
+                                        return 'eg: '. route('agent.product.view', ['refcode'=>'test','slug'=>$slug]);
+                                    })
+                                    ->live(),
+                                Forms\Components\Grid::make(3)
+                                    ->schema([
+                                        Forms\Components\TextInput::make('price')
+                                            ->required()
+                                            ->numeric()
+                                            ->prefix('RM'),
+                                        Forms\Components\TextInput::make('distributor_price')
+                                            ->required()
+                                            ->numeric()
+                                            ->prefix('RM'),
+                                        Forms\Components\TextInput::make('agent_comm')
+                                            ->required()
+                                            ->numeric()
+                                            ->prefix('RM'),
+                                    ]),
                                 Forms\Components\Textarea::make('short_desc')
                                     ->label('Short Description')
                                     ->columnSpanFull(),

@@ -6,6 +6,7 @@ use App\Models\AgentUser;
 use App\Models\DistributorUser;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use Filament\Notifications;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
@@ -16,7 +17,7 @@ class OrderService
     {
         // process order
         // Log::debug('items', ['aid'=>$agentID,'did'=>$distributorID,'items'=>$items]);return '#';
-        $baseComm = AgentUser::find($agentID)->value('comm_amount');
+        // $baseComm = AgentUser::find($agentID)->value('comm_amount');
 
         $settings = SettingsHelper::getDistributorSettings($distributorID);
         $deliveryPrice = $settings['DELIVERY_PRICE'];
@@ -44,8 +45,10 @@ class OrderService
             $orderItem->amount = $item['total'];
             $orderItem->save();
 
+            $product = Product::find($item['id']);
+
             $subTotal = $subTotal + $item['total'];
-            $commission = $item['qty'] * $baseComm;
+            $commission = $item['qty'] * $product->agent_comm;
             $agentComm = $agentComm + $commission;
         endforeach;
 

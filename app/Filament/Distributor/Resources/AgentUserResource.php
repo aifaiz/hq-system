@@ -75,9 +75,9 @@ class AgentUserResource extends Resource
                     ->regex('/^01\d{8,}$/')
                     ->helperText('start with 01XXXXXXXX .must not contain - or space')
                     ->readOnly(fn (string $context): bool => $context === 'edit'),
-                Forms\Components\TextInput::make('comm_amount')
+                Forms\Components\Hidden::make('comm_amount')
                     ->label('Commission Amount')
-                    ->default(10)
+                    ->default(0)
                     ->prefix('RM')
                     ->readOnly()
                     ->hiddenOn('edit'),

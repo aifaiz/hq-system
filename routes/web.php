@@ -11,6 +11,7 @@ Route::get('/', function () {
 });
 
 Route::get('order/{refcode}', Agent\Product::class)->name('agent.product');
+Route::get('order/{refcode}/product/{slug}', Agent\ViewProduct::class)->name('agent.product.view');
 Route::get('order/{refcode}/cart', Agent\CartSummary::class)->name('agent.cart');
 Route::get('order-completed/{refcode}/{billCode}', Agent\OrderCompleted::class)->name('agent.order.completed');
 
