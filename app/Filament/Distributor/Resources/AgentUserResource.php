@@ -78,7 +78,6 @@ class AgentUserResource extends Resource
                 Forms\Components\Hidden::make('comm_amount')
                     ->label('Commission Amount')
                     ->default(0)
-                    ->prefix('RM')
                     ->readOnly()
                     ->hiddenOn('edit'),
                 Forms\Components\TextInput::make('password')
