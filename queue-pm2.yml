@@ -1,0 +1,10 @@
+apps:
+  - name: hqsystem-queue
+    script: ./php artisan
+    interpreter: php
+    restart: true
+    max_memory_restart: 70M
+    args:
+      - queue:work
+      - --tries=5
+      - --sleep=1

@@ -15,12 +15,12 @@ class ListAgentUsers extends ListRecords
         $refcode = auth()->user()->refcode;
         $url = route('distributor.reg.agent', ['refcode'=>$refcode]);
         return [
-            // Actions\CreateAction::make(),
-            Actions\Action::make('New Agent')
-                ->color('info')
-                ->icon('heroicon-c-plus')
-                ->url($url)
-                ->openUrlInNewTab()
+            Actions\CreateAction::make(),
+            // Actions\Action::make('Reg New Agent')
+            //     ->color('info')
+            //     ->icon('heroicon-c-plus')
+            //     ->url($url)
+            //     ->openUrlInNewTab()
         ];
     }
 
