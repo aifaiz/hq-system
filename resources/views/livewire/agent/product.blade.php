@@ -12,7 +12,7 @@
               wire:key="product_{{$p->id}}" 
               productid="{{$p->id}}"
               name="{{$p->name}}"
-              description="{{$p->description}}"
+              description="{{$p->short_desc}}"
               price="{{$p->price}}"
               enableorder="{{$enableOrder}}"
               image="{{$p->cover_image}}"
