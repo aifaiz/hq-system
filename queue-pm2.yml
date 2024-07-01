@@ -1,10 +1,11 @@
 apps:
-  - name: hqsystem-queue
-    script: ./php artisan
+  - args:
+      - "queue:work"
+      - "--tries=5"
+      - "--sleep=1"
+    exec_mode: fork
+    name: hqsystem-queue
+    script: php /webserver/hqsystem.asasniaga.com/artisan
     interpreter: php
     restart: true
     max_memory_restart: 70M
-    args:
-      - queue:work
-      - --tries=5
-      - --sleep=1
