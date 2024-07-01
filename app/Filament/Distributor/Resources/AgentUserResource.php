@@ -77,9 +77,7 @@ class AgentUserResource extends Resource
                     ->readOnly(fn (string $context): bool => $context === 'edit'),
                 Forms\Components\Hidden::make('comm_amount')
                     ->label('Commission Amount')
-                    ->default(0)
-                    ->readOnly()
-                    ->hiddenOn('edit'),
+                    ->default(0),
                 Forms\Components\TextInput::make('password')
                     ->hiddenOn('edit')
                     ->required()
