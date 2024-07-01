@@ -44,6 +44,7 @@ class ProductResource extends Resource
                                     ->prefix('RM'),
                                 Forms\Components\Textarea::make('description')
                                     ->columnSpanFull()
+                                    ->required()
                             ])
                             ->columnSpan(2),
                         Forms\Components\Section::make('Actions')

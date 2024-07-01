@@ -202,7 +202,7 @@ class StockRequestResource extends Resource
 
                                             Notification::make()
                                                 ->title('Success')
-                                                ->body('Marked as paid.')
+                                                ->body('Marked as paid. '. $distributor->name)
                                                 ->info()
                                                 ->color('success')
                                                 ->send();
@@ -210,10 +210,12 @@ class StockRequestResource extends Resource
                                             $record->pay_status = 'PAID';
                                             $record->save();
 
-                                            Notification::make()
+                                            $distributor->notify(
+                                                Notification::make()
                                                 ->title('Stock Request '.$record->ref.' is marked PAID')
                                                 ->color('success')
-                                                ->sendToDatabase($distributor);
+                                                ->toDatabase()
+                                            );
                                         })
                                         ->hidden(fn(StockRequest $record)=> $record->pay_status === 'PAID'),
                                     Infolists\Components\Actions\Action::make('due')
