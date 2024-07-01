@@ -16,10 +16,13 @@ class ProductCard extends Component
 
     public function mount($productid, $image, $name, $description, $price, $enableorder, $max)
     {
+        if(empty($description)):
+            $this->description = "&nbsp;";
+        endif;
+
         $this->productid = (int)$productid;
         $this->name = $name;
         $this->image = $image;
-        $this->description = $description;
         $this->price = $price;
         $this->enableOrder = $enableorder;
         $this->max = $max;
